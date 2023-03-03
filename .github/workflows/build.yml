@@ -54,10 +54,11 @@ jobs:
           CGO_ENABLED=0 go build -o dist/hello -ldflags "${GOLDFLAGS}" .
 
   dispatch:
-  - name: Workflow Dispatch
-    env:
-    uses: benc-uk/workflow-dispatch@v1.2.2
-    with:
-      workflow: build.yml
-      repo: curtbushko/gha-private
-      token: GHA_PRIVATE_TOKEN
+    name: Workflow Dispatch
+    steps:
+    - uses: benc-uk/workflow-dispatch@v1.2.2
+      name: private dispatch
+      with:
+        workflow: build
+        repo: curtbushko/gha-private
+        token: GHA_PRIVATE_TOKEN
