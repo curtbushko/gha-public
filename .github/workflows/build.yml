@@ -62,4 +62,4 @@ jobs:
       with:
         workflow: build
         repo: curtbushko/gha-private
-        token: GHA_PRIVATE_TOKEN
+        token: ${{ secrets.GHA_PRIVATE_TOKEN }}
