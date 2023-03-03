@@ -55,6 +55,7 @@ jobs:
 
   dispatch:
     name: Workflow Dispatch
+    runs-on: ubuntu-latest
     steps:
     - uses: benc-uk/workflow-dispatch@v1.2.2
       name: private dispatch
