@@ -53,14 +53,28 @@ jobs:
 
           CGO_ENABLED=0 go build -o dist/hello -ldflags "${GOLDFLAGS}" .
 
-  dispatch:
-    name: Private Lint
+  lint:
+    name: Lint
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - uses: benc-uk/workflow-dispatch@v1.2.2
-      name: private lint
+      name: lint
       with:
         workflow: lint
+        repo: curtbushko/gha-private
+        token: ${{ secrets.GHA_PRIVATE_TOKEN }}
+        inputs: '{"ref": "${{ github.ref }}", "token": "${{ secrets.GHA_PRIVATE_TOKEN }}" }'
+
+  acceptance:
+    name: Acceptance 
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: benc-uk/workflow-dispatch@v1.2.2
+      name: acceptance
+      with:
+        workflow: acceptance 
         repo: curtbushko/gha-private
         token: ${{ secrets.GHA_PRIVATE_TOKEN }}
         inputs: '{"ref": "${{ github.ref }}", "token": "${{ secrets.GHA_PRIVATE_TOKEN }}" }'
