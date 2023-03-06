@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello wrong host")
+	fmt.Printf("Hello fill out curl properly")
 }
