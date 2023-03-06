@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello weird")
+	fmt.Printf("Hello wrong host")
 }
