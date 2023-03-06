@@ -77,4 +77,4 @@ jobs:
         workflow: acceptance 
         repo: curtbushko/gha-private
         token: ${{ secrets.GHA_PRIVATE_TOKEN }}
-        inputs: '{"ref": "${{ github.ref }}", "token": "${{ secrets.GHA_PRIVATE_TOKEN }}" }'
+        inputs: '{"ref": "${{ github.sha }}", "token": "${{ secrets.GHA_PRIVATE_TOKEN }}" }'
