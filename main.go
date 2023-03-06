@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello try other actions")
+	fmt.Printf("Hello go back to the other action")
 }
