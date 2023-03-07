@@ -23,7 +23,6 @@ jobs:
           echo "Building with Go $(cat .go-version)"
           echo "::set-output name=go-version::$(cat .go-version)"
 
-
   build:
     needs: [get-go-version]
     runs-on: ubuntu-latest
