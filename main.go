@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello env.PRODUCT")
+	fmt.Printf("Hello nope, no env")
 }
