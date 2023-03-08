@@ -3,5 +3,5 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("Hello try tree?")
+	fmt.Printf("Hello try tree -a?")
 }
