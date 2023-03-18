@@ -29,7 +29,6 @@ jobs:
 
     name: Go ${{ matrix.go }} ${{ matrix.goos }} ${{ matrix.goarch }} ${{ matrix.component }} build
     steps:
-      # blah blah
       - uses: actions/checkout@v3
 
       - name: Setup go
