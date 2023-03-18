@@ -73,8 +73,9 @@ jobs:
     steps:
     - uses: benc-uk/workflow-dispatch@v1.2.2
       name: acceptance
+      id: acceptance
       with:
         workflow: acceptance
         repo: curtbushko/gha-private
         token: ${{ secrets.GHA_PRIVATE_TOKEN }}
-        inputs: '{"repository":"${{ github.repository }}", "branch":"${{ github.ref_name }}", "sha":"${{ github.sha }}", "token":"${{ secrets.GHA_PRIVATE_TOKEN }}", "job_id":"${{ github.jobs.acceptance.name }}" }'
+        inputs: '{"repository":"${{ github.repository }}", "branch":"${{ github.ref_name }}", "sha":"${{ github.sha }}", "token":"${{ secrets.GHA_PRIVATE_TOKEN }}", "job_id":"blah" }'
