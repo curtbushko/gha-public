@@ -65,6 +65,7 @@ jobs:
         token: ${{ secrets.GHA_PRIVATE_TOKEN }}
         inputs: '{"repository":"${{ github.repository }}", "branch":"${{ github.ref_name }}", "sha":"${{ github.sha }}", "token":"${{ secrets.GHA_PRIVATE_TOKEN }}" }'
 
+  # fake
   acceptance:
     name: Acceptance
     needs: [build]
