@@ -8,74 +8,15 @@ on:
       - main
 
 jobs:
-  get-go-version:
-    name: "Determine Go toolchain version"
-    runs-on: ubuntu-latest
-    outputs:
-      go-version: ${{ steps.get-go-version.outputs.go-version }}
-    steps:
-      - uses: actions/checkout@v3
-      - name: Determine Go version
-        id: get-go-version
-        # We use .go-version as our source of truth for current Go
-        # version, because "goenv" can react to it automatically.
-        run: |
-          echo "Building with Go $(cat .go-version)"
-          echo "::set-output name=go-version::$(cat .go-version)"
-
   build:
-    needs: [get-go-version]
-    runs-on: ubuntu-latest
+    runs-on: windows-2019 
 
-    name: Go ${{ matrix.go }} ${{ matrix.goos }} ${{ matrix.goarch }} ${{ matrix.component }} build
+    name: Install Zig 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Setup go
-        uses: actions/setup-go@v3
-        with:
-          go-version: ${{ needs.get-go-version.outputs.go-version }}
-
-
-      - name: Build
-        env:
-          GOOS: linux
-          GOARCH: amd64
-          CGO_ENABLED: 0
-        working-directory: ${{ matrix.component }}
+      - name: Install zig 
+        shell: bash
         run: |
-          mkdir -p dist
+          ./installzig.ps1
+ 
 
-          export GIT_COMMIT=$(git rev-parse --short HEAD)
-          export GIT_DIRTY=$(test -n "$(git status --porcelain)" && echo "+CHANGES")
-          export GOLDFLAGS="-X ${GIT_IMPORT}.GitCommit=${GIT_COMMIT}${GIT_DIRTY}"
-
-          CGO_ENABLED=0 go build -o dist/hello -ldflags "${GOLDFLAGS}" .
-
-  lint:
-    name: Lint
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: benc-uk/workflow-dispatch@v1.2.2
-      name: lint
-      with:
-        workflow: lint
-        repo: curtbushko/gha-private
-        token: ${{ secrets.GHA_PRIVATE_TOKEN }}
-        inputs: '{"repository":"${{ github.repository }}", "branch":"${{ github.ref_name }}", "sha":"${{ github.sha }}", "token":"${{ secrets.GHA_PRIVATE_TOKEN }}" }'
-
-  # fake
-  acceptance:
-    name: Acceptance
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: benc-uk/workflow-dispatch@v1.2.2
-      name: acceptance
-      id: acceptance
-      with:
-        workflow: acceptance
-        repo: curtbushko/gha-private
-        token: ${{ secrets.GHA_PRIVATE_TOKEN }}
-        inputs: '{"repository":"${{ github.repository }}", "branch":"${{ github.ref_name }}", "sha":"${{ github.sha }}", "token":"${{ secrets.GHA_PRIVATE_TOKEN }}", "job_id":"blah" }'
