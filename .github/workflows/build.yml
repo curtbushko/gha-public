@@ -14,10 +14,8 @@ jobs:
     name: Install Zig 
     steps:
       - uses: actions/checkout@v3
-      - name: Install wget
-        run: choco install wget
       - name: Install zig 
-        shell: bash
+        shell: pwsh
         run: |
           ./installzig.ps1
  
